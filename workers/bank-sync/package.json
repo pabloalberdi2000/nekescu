@@ -1,0 +1,20 @@
+{
+  "name": "bank-sync",
+  "version": "1.0.0",
+  "description": "Worker para sincronización bancaria con GoCardless",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "nordigen-node": "^1.3.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
