@@ -1,0 +1,18 @@
+export default function FacturasRecibidasPage() {
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">Facturas Recibidas</h1>
+        <p className="text-gray-600 mt-2">Gestiona las facturas de tus proveedores</p>
+      </div>
+      <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          No hay facturas recibidas
+        </h3>
+        <p className="text-gray-600">
+          El sistema procesará automáticamente facturas recibidas por email
+        </p>
+      </div>
+    </div>
+  );
+}

@@ -42,7 +42,12 @@ export async function middleware(request: NextRequest) {
 
   // Redirect a dashboard si ya autenticado en login
   if (session && request.nextUrl.pathname === '/login') {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/dashboard', request.url));
+  }
+
+  // Redirect raíz a dashboard si autenticado
+  if (session && request.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   return response;

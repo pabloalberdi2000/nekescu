@@ -1,125 +1,155 @@
-# nekescu - ERP Patrimonial
+# 🏢 NEKESCU - ERP Patrimonial
 
-Sistema integral de gestión para sociedades patrimoniales en España con TicketBAI, Open Banking y automatización de facturas.
+Sistema de gestión integral para sociedades patrimoniales, especializado en la gestión de inmuebles, facturación con TicketBAI y tesorería con Open Banking.
 
 ## 🚀 Stack Tecnológico
 
-- **Frontend**: Next.js 15 + React 19 + TypeScript
-- **UI**: Tailwind CSS + Lucide Icons
-- **Backend**: Supabase (PostgreSQL + Auth + Storage)
+- **Framework**: Next.js 15 (App Router)
+- **Base de datos**: Supabase (PostgreSQL)
 - **ORM**: Drizzle ORM
-- **Workers**: Node.js (Email + Bank Sync)
-- **TicketBAI**: Arquitectura desacoplada (KubiBAI)
-- **Open Banking**: GoCardless
+- **Autenticación**: Supabase Auth (SSR)
+- **Estilos**: Tailwind CSS
+- **Lenguaje**: TypeScript
+- **Validación**: Zod + React Hook Form
 
 ## 📋 Características
 
-- ✅ Gestión de inmuebles y activos
-- ✅ Facturación (emitidas/recibidas) con IVA e IRPF
-- ✅ TicketBAI integrado (firma digital + QR)
-- ✅ Sincronización bancaria automática (GoCardless)
-- ✅ Conciliación bancaria inteligente
-- ✅ Procesamiento automático de facturas por email
-- ✅ Multi-tenant con Row Level Security (RLS)
-- ✅ Dashboard con métricas en tiempo real
+### ✅ Implementado
 
-## 🏗️ Arquitectura
+- **Dashboard**: Panel de control con métricas en tiempo real
+- **Inmuebles**: CRUD completo de propiedades inmobiliarias
+- **Autenticación**: Login/Logout con Supabase Auth
+- **Multi-tenant**: Row Level Security (RLS) por empresa
+- **Diseño**: Interfaz moderna y responsive
+
+### 🚧 En desarrollo
+
+- **Facturación**: Emisión de facturas con integración TicketBAI
+- **Tesorería**: Gestión de cuentas bancarias con Open Banking (GoCardless)
+- **Conciliación**: Matching automático de movimientos con facturas
+- **Workers**: Procesamiento de emails y sincronización bancaria
+
+## 🛠️ Instalación
+
+### 1. Clonar repositorio
+
+```bash
+git clone <repo-url>
+cd nekescu
+```
+
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3. Configurar variables de entorno
+
+Copia `.env.example` a `.env.local` y configura tus credenciales:
+
+```bash
+cp .env.example .env.local
+```
+
+Edita `.env.local` con tus credenciales de Supabase.
+
+### 4. Configurar Supabase
+
+Sigue las instrucciones detalladas en [SUPABASE_SETUP.md](./SUPABASE_SETUP.md)
+
+Pasos principales:
+1. Ejecutar migración SQL
+2. Crear bucket de Storage
+3. Crear usuario administrador
+
+### 5. Ejecutar en desarrollo
+
+```bash
+npm run dev
+```
+
+Visita: http://localhost:3000
+
+## 📁 Estructura del Proyecto
 
 ```
 nekescu/
-├── src/                          # Next.js App
-│   ├── app/                      # App Router (rutas)
-│   ├── lib/                      # Lógica de negocio
-│   │   ├── db/                   # Drizzle ORM schema
-│   │   ├── supabase/             # Clientes SSR
-│   │   ├── services/             # Servicios (TicketBAI, Banking)
-│   │   └── utils/                # Utilidades (currency, tax)
-│   └── components/               # Componentes React
-├── workers/                      # Background workers
-│   ├── email-processor/          # Procesa facturas de email
-│   └── bank-sync/                # Sincroniza cuentas bancarias
-└── supabase/                     # Migraciones SQL
-    └── migrations/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── (auth)/            # Rutas públicas (login)
+│   │   ├── dashboard/         # Rutas privadas
+│   │   ├── actions/           # Server Actions
+│   │   └── api/               # API Routes
+│   ├── components/            # Componentes React
+│   ├── lib/
+│   │   ├── db/               # Drizzle ORM + Schema
+│   │   ├── supabase/         # Cliente Supabase
+│   │   ├── services/         # Lógica de negocio
+│   │   └── utils/            # Utilidades
+│   └── middleware.ts         # Auth middleware
+├── supabase/
+│   ├── migrations/           # Migraciones SQL
+│   └── seed.sql             # Datos de ejemplo
+└── workers/                  # Workers (separados del monorepo)
+    ├── email-processor/
+    └── bank-sync/
 ```
-
-## 📦 Instalación
-
-Ver **[QUICKSTART.md](./QUICKSTART.md)** para guía paso a paso.
-
-### Quick Setup
-
-```bash
-# 1. Instalar dependencias
-npm install
-
-# 2. Configurar variables de entorno
-cp .env.example .env.local
-# Editar .env.local con tus credenciales Supabase
-
-# 3. Aplicar migración de base de datos
-npm run db:push
-
-# 4. Arrancar servidor
-npm run dev
-```
-
-## 🗄️ Base de Datos
-
-8 tablas relacionales optimizadas:
-- `companies` - Datos de empresas
-- `properties` - Inmuebles y activos
-- `contacts` - Inquilinos, proveedores, clientes
-- `invoices` - Facturas emitidas y recibidas
-- `ticketbai_records` - Firma digital TicketBAI
-- `bank_accounts` - Cuentas bancarias
-- `bank_transactions` - Movimientos bancarios
-- `reconciliations` - Conciliación facturas-banco
-
-Ver schema completo en `src/lib/db/schema.ts`
-
-## 🔧 Comandos Disponibles
-
-```bash
-npm run dev          # Servidor desarrollo (http://localhost:3000)
-npm run build        # Build producción
-npm run start        # Servidor producción
-npm run db:generate  # Generar migración Drizzle
-npm run db:push      # Aplicar schema a Supabase
-npm run db:studio    # GUI base de datos
-```
-
-## 📚 Documentación
-
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Arquitectura técnica completa
-- **[QUICKSTART.md](./QUICKSTART.md)** - Guía de instalación paso a paso
 
 ## 🔐 Seguridad
 
-- Row Level Security (RLS) multi-tenant
-- Auth con Supabase SSR
-- Variables de entorno para secrets
-- Certificados digitales para TicketBAI
+- **RLS (Row Level Security)**: Todas las tablas tienen políticas RLS activas
+- **Multi-tenant**: Aislamiento por `company_id`
+- **Auth SSR**: Autenticación server-side con Supabase
+- **Env vars**: Credenciales en `.env.local` (nunca en el repo)
 
-## 🛠️ Workers Background
+## 🧪 Testing
 
-### Email Processor
 ```bash
-cd workers/email-processor
-npm install
-npm run dev
+# Unit tests
+npm run test
+
+# Build production
+npm run build
 ```
 
-### Bank Sync
-```bash
-cd workers/bank-sync
-npm install
-npm run dev
-```
+## 📚 Módulos
+
+### 1. Inmuebles
+- CRUD completo de propiedades
+- Referencia catastral
+- Valoración y rentas
+- Historial de modificaciones
+
+### 2. Facturación
+- Facturas emitidas/recibidas
+- Integración TicketBAI (Bizkaia)
+- Generación de PDFs
+- Firma digital
+
+### 3. Tesorería
+- Cuentas bancarias
+- Movimientos sincronizados (Open Banking)
+- Conciliación automática
+- Reporting financiero
+
+### 4. Configuración
+- Datos de empresa
+- Certificados TicketBAI
+- Conexión bancaria
+- Usuarios y permisos
+
+## 🔗 Integraciones
+
+- **TicketBAI**: Kubibai (Facturación País Vasco)
+- **Open Banking**: GoCardless (Sincronización bancaria)
+- **Storage**: Supabase Storage (PDFs, XMLs)
+- **Email**: IMAP (Procesamiento facturas recibidas)
 
 ## 📄 Licencia
 
-Privado - Uso exclusivo interno
+Privado - NEKESCU SL
 
----
+## 👥 Autor
 
-Desarrollado con ❤️ para gestión patrimonial profesional
+Desarrollado para NEKESCU SL

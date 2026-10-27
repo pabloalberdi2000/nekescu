@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       irpfRate: Number(invoice.irpfRate),
       irpfAmount: Number(invoice.irpfAmount),
       total: Number(invoice.total),
-      previousHash: company.ticketbaiLastHash,
+      previousHash: company.ticketbaiLastHash || undefined,
     };
 
     // 4. Firmar con provider
