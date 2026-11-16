@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import './globals.css';
 
+const inter = Inter({ subsets: ['latin'] });
+
 export const metadata: Metadata = {
-  title: 'nekescu - ERP Patrimonial',
+  title: 'NEKESCU - ERP Patrimonial',
   description: 'Sistema de gestión integral para sociedades patrimoniales',
 };
 
@@ -13,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="font-sans antialiased">{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
